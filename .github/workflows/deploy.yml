@@ -40,6 +40,7 @@ jobs:
     - name: Fail randomly
       run: |
         cat README.md
+	echo "test"
         exit $((RANDOM % 2))
     - name: Message success
       if: ${{ success() }}
