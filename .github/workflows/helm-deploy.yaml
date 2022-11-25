@@ -14,10 +14,20 @@ on:
 
       delete_on_complete:
         description: 'delete NS at the end (default: True)'
+        type: boolean
+        default: true
+
+      test_mpg:
+        description: 'execute mpg project (default: True)'
         required: true
         type: boolean
         default: true
 
+      test_custom_model:
+        description: 'execute custom model (default: False)'
+        required: true
+        type: boolean
+        default: false
 
       namespace:
         description: 'choose your namespace (optional, if blank a randmon string will be used)'
@@ -79,13 +89,26 @@ jobs:
             echo "done : ${{ inputs.delete_on_complete }}"
 
 
+
+      - name: testing
+        if: ${{ input.test_mpg }}
+        run: |
+          if [ "${{ input.test_mpg }}" == "true" ]; then
+            echo "test MPG"
+          fi
+
+          if [ "${{ input.test_custom_model }}" == "true" ]; then
+            echo "test custom model"
+          fi
+
+
       - name: delete_on_complete
-        if: ${{ inputs.delete_on_complete }} == 'true'
+        if: ${{ inputs.delete_on_complete == true }}
         run: |
             echo "delete_on_complete: ${{ inputs.delete_on_complete }}"
 
 
       - name: not_delete_on_complete
-        if: ${{ inputs.delete_on_complete }} == 'false'
+        if: ${{ inputs.delete_on_complete == false }}
         run: |
             echo "not_delete_on_complete: ${{ inputs.delete_on_complete }}"
