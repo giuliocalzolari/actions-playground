@@ -1,0 +1,78 @@
+name: Helm deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      cluster:
+        description: 'Choose the cluster where to deploy (default: caracal)'
+        required: true
+        default: 'caracal'
+        type: choice
+        options:
+        - caracal
+        - openshift-s12
+
+      delete_on_complete:
+        description: 'delete NS at the end (default: True)'
+        required: true
+        type: boolean
+        default: true
+
+
+      namespace:
+        description: 'choose your namespace (optional, if blank a randmon string will be used)'
+        type: string
+        default: ""
+
+      branch:
+        description: 'branch to deploy (default: master)'
+        type: string
+        required: true
+        default: master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      AWS_REGION: us-east-1
+      EKS: caracal
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ inputs.branch }}
+
+
+      - name: Get Helm and kubectl
+        run: |
+          curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+          curl -LO https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/4.10.21/oc-mirror.tar.gz
+          tar xvzf oc-mirror.tar.gz
+          mv oc-*-linux/kubectl /usr/local/bin
+          mv oc-*-linux/oc /usr/local/bin
+
+          if [ -z "${{ inputs.namespace }}" ]
+          then
+            echo "namespace NOT specified"
+            echo "NAMESPACE=${{ github.run_id }}" >> $GITHUB_ENV
+          else
+            echo "namespace: ${{ inputs.namespace }}"
+            echo "NAMESPACE="${{ inputs.namespace }}"" >> $GITHUB_ENV
+          fi
+
+
+      - name: AWS Credentials
+        if: ${{ inputs.cluster == "caracal" }}
+        run: |
+          echo "AWS Credentials"
+
+
+      - name: kubeconfing
+        run: |
+          echo "update-kubeconfig from ${{ inputs.cluster }}"
+
+
+      - name: helm deploy
+        run: |
+            echo "done"
