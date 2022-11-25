@@ -16,16 +16,19 @@ on:
         description: 'delete NS at the end (default: True)'
         type: boolean
         default: true
+        required: true
 
       test_mpg:
         description: 'execute mpg project (default: True)'
         type: boolean
         default: true
+        required: true
 
       test_custom_model:
         description: 'execute custom model (default: False)'
         type: boolean
         default: false
+        required: true
 
       namespace:
         description: 'choose your namespace (optional, if blank a randmon string will be used)'
