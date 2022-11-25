@@ -46,7 +46,7 @@ jobs:
           mv kubectl /usr/local/bin
           mv oc /usr/local/bin
 
-          kubectl version
+          kubectl version  --client=true
           oc version
 
           if [ -z "${{ inputs.namespace }}" ]
