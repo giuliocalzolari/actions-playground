@@ -28,7 +28,6 @@ on:
         description: 'execute custom model (default: False)'
         type: boolean
         default: false
-        required: true
 
       namespace:
         description: 'choose your namespace (optional, if blank a randmon string will be used)'
