@@ -102,13 +102,23 @@ jobs:
           fi
 
 
-      - name: delete_on_complete
+
+      - name: test mpg
+        if: ${{ inputs.test_mpg }}
+        run: |
+          echo "test MPG"
+          # python3 mpg.py --ns ${{ env.NAMESPACE }}
+
+      - name: test custom model
+        if: ${{ inputs.test_custom_model }}
+        run: |
+          echo "test custom model"
+          # python3 custom_model.py --ns ${{ env.NAMESPACE }}
+
+      - name: cleanup
         if: ${{ inputs.delete_on_complete == true }}
         run: |
-            echo "delete_on_complete: ${{ inputs.delete_on_complete }}"
+          # kubectl delete all --all -n ${{ env.NAMESPACE }}
+          # kubectl delete namespace ${{ env.NAMESPACE }}
 
 
-      - name: not_delete_on_complete
-        if: ${{ inputs.delete_on_complete == false }}
-        run: |
-            echo "not_delete_on_complete: ${{ inputs.delete_on_complete }}"
