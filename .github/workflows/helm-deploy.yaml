@@ -63,7 +63,7 @@ jobs:
 
 
       - name: AWS Credentials
-        if: ${{ inputs.cluster == "caracal" }}
+        if: ${{ inputs.cluster }} == "caracal"
         run: |
           echo "AWS Credentials"
 
