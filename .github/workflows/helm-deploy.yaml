@@ -80,12 +80,12 @@ jobs:
 
 
       - name: delete_on_complete
-        if: ${{ inputs.delete_on_complete }}
+        if: ${{ inputs.delete_on_complete }} == "true"
         run: |
             echo "delete_on_complete"
 
 
       - name: not_delete_on_complete
-        if: ${{ inputs.delete_on_complete }}
+        if: ${{ inputs.delete_on_complete }} == "false"
         run: |
             echo "not_delete_on_complete"
