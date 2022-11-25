@@ -92,7 +92,6 @@ jobs:
 
 
       - name: testing
-        if: ${{ input.test_mpg }}
         run: |
           if [ "${{ inputs.test_mpg }}" == "true" ]; then
             echo "test MPG"
