@@ -94,11 +94,11 @@ jobs:
       - name: testing
         if: ${{ input.test_mpg }}
         run: |
-          if [ "${{ input.test_mpg }}" == "true" ]; then
+          if [ "${{ inputs.test_mpg }}" == "true" ]; then
             echo "test MPG"
           fi
 
-          if [ "${{ input.test_custom_model }}" == "true" ]; then
+          if [ "${{ inputs.test_custom_model }}" == "true" ]; then
             echo "test custom model"
           fi
 
