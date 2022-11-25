@@ -76,16 +76,16 @@ jobs:
 
       - name: helm deploy
         run: |
-            echo "done"
+            echo "done : ${{ inputs.delete_on_complete }}"
 
 
       - name: delete_on_complete
-        if: ${{ inputs.delete_on_complete }} == "true"
+        if: ${{ inputs.delete_on_complete }}
         run: |
             echo "delete_on_complete"
 
 
       - name: not_delete_on_complete
-        if: ${{ inputs.delete_on_complete }} == "false"
+        if: ${{ inputs.delete_on_complete }}
         run: |
             echo "not_delete_on_complete"
