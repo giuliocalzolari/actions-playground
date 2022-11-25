@@ -22,12 +22,13 @@ on:
         description: 'execute mpg project (default: True)'
         type: boolean
         default: true
-        required: true
+        required: false
 
       test_custom_model:
         description: 'execute custom model (default: False)'
         type: boolean
         default: false
+        required: false
 
       namespace:
         description: 'choose your namespace (optional, if blank a randmon string will be used)'
